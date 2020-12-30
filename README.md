@@ -12,7 +12,6 @@ https://github.com/irtimmer/moonlight-embedded
 - Basic familiarity with ssh and terminal for installation
 
 ## Instructions:
-These instructions assume that your gaming PC  is connected to the same local network as the LibreELEC device.
 1. Enable Nvidia Gamestream on your gaming PC
 ```
 GeForce Experience/Settings/Shield/Gamestream (move slider to right)
@@ -48,3 +47,6 @@ Kodi/Add-ons/Install from zip file/Select script.moonlight-embedded.launcher.zip
 ```
 Kodi/Add-ons/Game add-ons/Moonlight Embedded Launcher
 ```
+
+## Troubleshooting:
+TBD
