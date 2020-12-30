@@ -30,4 +30,7 @@ bash ./install.sh
 5. The installer script will guide you through the process. The only user interaction required is during the pairing process. The LibreELEC terminal will give you a 4 digit code, and you will see a pop-up on your gaming PC to enter the code.
 ![LibreELEC terminal code](libreelec_code.png)
 ![Gamestream host pop-up](gamestream_prompt.png)
-6. Install the launcher add-on from the script.moonlight.launcher.zip file: ```Kodi/Add-ons/Install from zip file/Select script.moonlight.launcher.zip```
+6. Install the launcher add-on from the script.moonlight.launcher.zip file
+```
+Kodi/Add-ons/Install from zip file/Select script.moonlight.launcher.zip
+```
