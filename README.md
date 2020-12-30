@@ -2,7 +2,7 @@
 Docker container/Kodi launcher for running moonlight-embedded on LibreELEC/Raspberry Pi systems.
 
 ## Background:
-This Docker container/Kodi addon-on was developed to enable moonlight game streaming on LibreELEC systems.  Since LibreELEC is a "just enough" distribution dependencies for moonlight-embedded are missing, requiring the use of a Docker container to run.  A simple add-on lets you launch moonlight from within Kodi and stream games from your PC to your LibreELEC devicee.
+This Docker container/Kodi addon-on was developed to enable moonlight game streaming on LibreELEC systems.  Since LibreELEC is a "just enough" distribution dependencies for moonlight-embedded are missing, requiring the use of a Docker container to run.  A simple add-on lets you launch moonlight-embedded from within Kodi and stream games from your PC to your LibreELEC devicee.
 More info on moonlight-embedded can be found here:
 https://github.com/irtimmer/moonlight-embedded
 
@@ -38,4 +38,8 @@ bash ./install.sh
 6. Install the launcher add-on from the script.moonlight.launcher.zip file
 ```
 Kodi/Add-ons/Install from zip file/Select script.moonlight.launcher.zip
+```
+7. Launch moonlight-embedded from within Kodi and enjoy your game streaming experience.  Exit Steam (power icon) to stop streaming/re-open Kodi.
+```
+Kodi/Add-ons/Game add-ons/Moonlight Embedded Launcher
 ```
