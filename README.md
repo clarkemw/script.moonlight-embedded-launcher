@@ -20,8 +20,8 @@ Kodi/Add-ons/LibreELEC Configuration/Services/Enable Avahi
 ```
 Kodi/Add-ons/Install from repository/LibreELEC Add-ons/Services/Docker
 ```
-4. SSH into your LibreELEC device, download the latest release of this repository to your LibreELEC device and run install.sh
-```
+4. SSH into your LibreELEC device, download/extract the latest release of this repository to your LibreELEC device and run install.sh
+```sh
 wget /link/to/thisrepo
 unzip repo.zip
 cd moonlight-embedded-launcher
