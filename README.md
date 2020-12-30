@@ -6,6 +6,11 @@ This Docker container/Kodi addon-on was developed to enable moonlight game strea
 More info on moonlight-embedded can be found here:
 https://github.com/irtimmer/moonlight-embedded
 
+## Prerequisites:
+- Raspberry Pi device with LibreELEC installed, connected to local network via ethernet (preferred) or wifi
+- Gaming PC with Steam and Nvidia GeForce Experience installed, connected to local network via ethernet (preferred) or wifi
+- Basic familiarity with ssh and terminal for installation
+
 ## Instructions:
 These instructions assume that your gaming PC  is connected to the same local network as the LibreELEC device.
 1. Enable Nvidia Gamestream on your gaming PC
