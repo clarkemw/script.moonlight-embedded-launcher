@@ -18,7 +18,6 @@ if [ "${STATUS}" = "active" ]; then
     else
         autopair=true   
     fi
-
 else
     echo "ERROR: Avahi is not running...exiting"
     echo "Please enable under Kodi/Add-ons/LibreELEC Configuration/Services/Enable Avahi"  
@@ -50,6 +49,9 @@ if [ $autopair = true ]; then
         echo "WARNING: unable to automatically pair to gamestream host"
     fi
 fi
+
+# Create kodi add-on zip:
+zip -r script.moonlight-embedded-launcher.zip script.moonlight-embedded-launcher
 
 echo ""
 echo "Installation complete!"
