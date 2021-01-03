@@ -5,7 +5,7 @@ import subprocess
 import xbmcgui, xbmc
 
 
-def load_installed_games()
+def load_installed_games():
     try:
         result = subprocess.check_output("systemd-run ~/.kodi/addons/script.moonlight-embedded-launcher/bin/get_games.sh", shell=True)
         gamelist = result.splitlines()
