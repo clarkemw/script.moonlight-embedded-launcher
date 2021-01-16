@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.moonlight-embedded-launcher" name="Moonlight Embedded Launcher" version="0.0.2" provider-name="clarkemw">
+<addon id="script.moonlight-embedded-launcher" name="Moonlight Embedded Launcher" version="0.0.3" provider-name="clarkemw">
     <requires>
         <import addon="xbmc.python" version="2.25.0"/>
     </requires>

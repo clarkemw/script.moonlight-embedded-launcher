@@ -26,9 +26,9 @@ Kodi/Add-ons/Install from repository/LibreELEC Add-ons/Services/Docker
 ```
 4. SSH into your LibreELEC device, download/extract the latest release of this repository to your LibreELEC device and run install.sh
 ```sh
-wget https://github.com/clarkemw/moonlight-embedded-launcher/archive/v0.2/moonlight-embedded-launcher-0.2.zip
-unzip moonlight-embedded-launcher-0.2.zip
-cd moonlight-embedded-launcher-0.2
+wget https://github.com/clarkemw/moonlight-embedded-launcher/archive/v0.3/moonlight-embedded-launcher-0.3.zip
+unzip moonlight-embedded-launcher-0.3.zip
+cd moonlight-embedded-launcher-0.3
 bash ./install.sh
 ```
 5. The installer script will guide you through the process. The only user interaction required is during the pairing process. The LibreELEC terminal will give you a 4 digit code, and you will see a pop-up on your gaming PC to enter the code.  
@@ -43,10 +43,11 @@ Please enter the following PIN on the target PC: 4321
 ```
 Kodi/Add-ons/Install from zip file/Select script.moonlight-embedded-launcher.zip
 ```
-7. Launch moonlight-embedded from within Kodi and enjoy your game streaming experience.  Exit Steam (power icon) to stop streaming/re-open Kodi.
+7. Launch moonlight-embedded from within Kodi and enjoy your game streaming experience. Select 'Play Game' and follow the prompts to play any game registered with gamestream.  Select 'Settings' to adjust resolution, framerate and bitrate.
 ```
 Kodi/Add-ons/Game add-ons/Moonlight Embedded Launcher
 ```
+8. Exit Steam (power icon) to stop streaming/re-open Kodi.
 
 ## Troubleshooting:
 TBD
