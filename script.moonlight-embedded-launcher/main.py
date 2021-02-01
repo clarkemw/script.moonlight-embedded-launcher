@@ -37,12 +37,11 @@ def launch(res,fps,bitrate):
         return
     dialog = xbmcgui.Dialog()
     gameIdx = dialog.select("Choose your Game:", gameList)
+    if gameIdx == -1:
+        sys.exit()
     # We split at the first blank to get rid of the number in the beginning
     # We also make sure to put the game name in quotation marks to ensure it to be treated as one arg
     selectedGame = gameList[gameIdx].split(" ", 1)[1].replace("\n","")
-    ok = xbmcgui.Dialog().ok("Starting...", "Press OK to Launch " + selectedGame)
-    if not ok:
-        sys.exit()
 
     launchCommand = 'systemd-run  bash ~/.kodi/addons/script.moonlight-embedded-launcher/bin/launch_moonlight.sh'
     args = ' "{}" "{}" "{}" "{}"'.format(res,fps,bitrate,selectedGame)
