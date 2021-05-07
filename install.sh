@@ -24,20 +24,15 @@ else
     exit 1  
 fi
 
-if [ ! -f Dockerfile.armhf.raspbian ]; then
-    echo "ERROR: Dockerfile not found in current directory...exiting"
-    exit 1
-fi
-
-# Generate volume and container:
+# Generate volume and download container:
 if ! docker volume create --name moonlight-home; then
     echo "ERROR: unable to create docker volume for persistent moonlight data...exiting"
     exit 1
 fi    
 
-echo "Beginning docker build...this may take a few minutes..."
-if ! docker build -t moonlight - < Dockerfile.armhf.raspbian; then
-    echo "ERROR: unable to build docker container...exiting"
+echo "Downloading...this may take a few minutes..."
+if ! docker pull clarkemw/moonlight-embedded-raspbian; then
+    echo "ERROR: unable to pull docker container...exiting"
     exit 1
 fi
 
@@ -45,7 +40,7 @@ fi
 if [ $autopair = true ]; then
     if ! docker run -it -v moonlight-home:/home/moonlight-user \
         -v /var/run/dbus:/var/run/dbus --device /dev/vchiq:/dev/vchiq \
-        moonlight pair; then
+        clarkemw/moonlight-embedded-raspbian pair; then
         echo "WARNING: unable to automatically pair to gamestream host"
     fi
 fi
