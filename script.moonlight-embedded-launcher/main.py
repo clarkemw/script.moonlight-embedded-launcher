@@ -31,7 +31,7 @@ def load_installed_games():
         xbmcgui.Dialog().ok("Error during fetching installed Games", msg)
         return None
     
-def launch(res,fps,bitrate):
+def launch(res,fps,bitrate,quitafter):
     gameList = load_installed_games()
     if gameList == None:
         return
@@ -43,16 +43,12 @@ def launch(res,fps,bitrate):
     # We also make sure to put the game name in quotation marks to ensure it to be treated as one arg
     selectedGame = gameList[gameIdx].split(" ", 1)[1].replace("\n","")
 
-    launchCommand = 'systemd-run  bash ~/.kodi/addons/script.moonlight-embedded-launcher/bin/launch_moonlight.sh'
-    args = ' "{}" "{}" "{}" "{}"'.format(res,fps,bitrate,selectedGame)
-    os.system(launchCommand + args)
+    # Send quit command from moonlight after existing (helpful for non-steam sessions):
+    quitflag = '-quitappafter' if quitafter == 'true' else ''
 
-#def getEnvArgsForSystemD(selectedGame):
-#    envVars = []
-#    for item, value in os.environ.items():
-#        envVars.append('-E "' + item + '=' + value + '"')
-#    envVars.append('-E "MOONLIGHT_GAME=' + selectedGame + '"') 
-#    return " ".join(envVars)
+    launchCommand = 'systemd-run  bash ~/.kodi/addons/script.moonlight-embedded-launcher/bin/launch_moonlight.sh'
+    args = ' "{}" "{}" "{}" "{}"'.format(res,fps,bitrate,selectedGame,quitflag)
+    os.system(launchCommand + args)
 
 
 addon = xbmcaddon.Addon(id='script.moonlight-embedded-launcher')  
@@ -62,7 +58,8 @@ while True:
         res = addon.getSetting('resolution')
         fps = addon.getSetting('fps') if addon.getSetting('fps') != 'auto' else '-1'
         bitrate = addon.getSetting('bitrate') if addon.getSetting('bitrate') != 'auto' else '-1'
-        launch(res,fps,bitrate)
+        quitafter = addon.getSetting('quitafter')
+        launch(res,fps,bitrate,quitafter)
         sys.exit()
     elif opt == 1:
         addon.openSettings()

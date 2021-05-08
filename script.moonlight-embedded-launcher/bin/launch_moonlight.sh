@@ -26,13 +26,18 @@ if [ -z "$4" ]; then
 else
     game="$4"
 fi
+if [ -z "$5" ]; then
+    quitflag="$5"
+else
+    quitflag=""
+fi
 
 systemctl stop kodi # Must close kodi for proper video display
 
 # Adjusted to just used input variables 
 docker run --rm --name moonlight -t -v moonlight-home:/home/moonlight-user \
 -v /var/run/dbus:/var/run/dbus --device /dev/vchiq --device /dev/input \
-clarkemw/moonlight-embedded-raspbian stream -"$res" -fps "$fps" -bitrate "$bitrate" -app "$game"
+clarkemw/moonlight-embedded-raspbian stream -"$res" -fps "$fps" -bitrate "$bitrate" -app "$game" "$quitflag"
 
 docker wait moonlight
 

@@ -4,6 +4,7 @@
        <setting type="select" id="resolution" label="Resolution" values="720|1080|4k" default="1080"/>
        <setting type="select" id="fps" label="Frames Per Second" values="auto|30|60" default="auto"/>
        <setting type="select" id="bitrate" label="Bitrate (kb/s)" values="auto|5000|10000|15000|20000" default="auto"/>
+       <setting type="bool" id="quitafter" label="Force Quit After" default="false"/>
     </category>
 </settings>
 
