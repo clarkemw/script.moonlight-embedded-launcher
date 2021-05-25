@@ -7,7 +7,7 @@ More info on moonlight-embedded can be found here:
 https://github.com/irtimmer/moonlight-embedded
 
 ## Prerequisites:
-- Raspberry Pi device with LibreELEC installed, connected to local network via ethernet (preferred) or wifi
+- Raspberry Pi 2 or 3 device with LibreELEC installed (see Troubleshooting section below before trying to use with a RPI4), connected to local network via ethernet (preferred) or wifi
 - Gaming PC with Steam and Nvidia GeForce Experience installed, connected to local network via ethernet (preferred) or wifi
 - Basic familiarity with ssh and terminal for installation
 
@@ -50,4 +50,5 @@ Kodi/Add-ons/Game add-ons/Moonlight Embedded Launcher
 8. Exit Steam (power icon) to stop streaming/re-open Kodi.
 
 ## Troubleshooting:
-TBD
+-moonlight-embedded has some issues on Raspberry Pi 4 devices. I recommend using this plugin instead:
+https://github.com/veldenb/plugin.program.moonlight-qt
