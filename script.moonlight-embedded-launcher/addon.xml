@@ -2,6 +2,7 @@
 <addon id="script.moonlight-embedded-launcher" name="Moonlight Embedded Launcher" version="0.0.5" provider-name="clarkemw">
     <requires>
         <import addon="xbmc.python" version="2.25.0"/>
+        <import addon="service.system.docker" version="9.80.11.133"/>
     </requires>
     <extension point="xbmc.python.script" library="main.py">
         <provides>executable game</provides>
