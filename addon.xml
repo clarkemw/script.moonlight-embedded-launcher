@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.moonlight-embedded-launcher" name="Moonlight Embedded Launcher" version="0.0.5" provider-name="clarkemw">
+<addon id="script.moonlight-embedded-launcher" name="Moonlight Embedded Launcher" version="1.0.0" provider-name="clarkemw">
     <requires>
         <import addon="xbmc.python" version="2.25.0"/>
+        <import addon="service.system.docker" version="9.2.0.118"/>
     </requires>
-    <extension point="xbmc.python.script" library="main.py">
+    <extension point="xbmc.python.script" library="addon.py">
         <provides>executable game</provides>
     </extension>
     <extension point="xbmc.addon.metadata">
@@ -14,7 +15,7 @@
         <license>MIT</license>
         <forum></forum>
         <website>https://github.com/clarkemw/moonlight-embedded-launcher</website>
-        <email>mcs5280@gmail.com</email>
+        <email></email>
         <source></source>
         <news></news>
         <disclaimer></disclaimer>
