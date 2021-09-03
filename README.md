@@ -1,4 +1,4 @@
-# moonlight-embedded-launcher
+# script.moonlight-embedded-launcher
 Docker container/Kodi launcher for running moonlight-embedded on LibreELEC/Raspberry Pi systems.
 
 ## Background:
