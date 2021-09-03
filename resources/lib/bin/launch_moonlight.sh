@@ -9,7 +9,7 @@ else
     res="$1"
 fi
 if [ -z "$2" ]; then
-    echo "Error, please specify frame rate (-1,30,60)...exiting"
+    echo "Error, please specify frame rate (30,60)...exiting"
     exit 1
 else
     fps="$2"
@@ -34,7 +34,7 @@ fi
 
 systemctl stop kodi # Must close kodi for proper video display
 
-# Adjusted to just used input variables 
+# Launch docker, adjusted to just used input variables 
 docker run --rm --name moonlight -t -v moonlight-home:/home/moonlight-user \
 -v /var/run/dbus:/var/run/dbus --device /dev/vchiq --device /dev/input \
 clarkemw/moonlight-embedded-raspbian stream -"$res" -fps "$fps" -bitrate "$bitrate" $quitflag -app "$game"

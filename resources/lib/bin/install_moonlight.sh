@@ -1,27 +1,24 @@
 #!/bin/bash
 # Installer script for moonlight-embedded docker image on LibreELEC systems
 
-# Check for dependencies: docker, avahi, Dockerfile.armhf.raspbian and a valid gamestream host
+# Check for dependencies: docker
 if ! command -v docker &> /dev/null; then
     echo "ERROR: Docker could not be found...exiting"
     echo "Please install under Kodi/Add-ons/Install from repository/LibreELEC Add-ons/Services/Docker"
     exit 1
 fi
 
+# Check for dependencies: avahi
 STATUS="$(systemctl is-active avahi-daemon.service)"
-if [ "${STATUS}" = "active" ]; then
-    if ! avahi-browse -t _nvstream._tcp | grep -q 'nvstream'; then
-        echo "WARNING: Nvidia gamestream host could not be found on local network..."
-        echo "Automatic pairing is not possible. Manual pairing will be required prior to use."
-        echo "Please turn on host and enable via GeForce Experience/Settings/Shield/Gamestream slider."
-        autopair=false
+if [ ! "${STATUS}" = "active" ]; then
+    if [ -f /storage/.cache/services/avahi.conf.disabled ]; then
+        # Enable steps from: https://forum.libreelec.tv/thread/24375-enable-avahi-zeroconf-programmatically/
+        rm -f /storage/.cache/services/avahi.conf.disabled
+        touch /storage/.cache/services/avahi.conf
+        systemctl restart avahi-daemon.service
     else
-        autopair=true   
-    fi
-else
-    echo "ERROR: Avahi is not running...exiting"
-    echo "Please enable under Kodi/Add-ons/LibreELEC Configuration/Services/Enable Avahi"  
-    exit 1  
+        echo "ERROR: Could not enable avahi daemon...exiting"
+    fi    
 fi
 
 # Generate volume and download container:
@@ -36,18 +33,6 @@ if ! docker pull clarkemw/moonlight-embedded-raspbian; then
     exit 1
 fi
 
-# Automatic pairing if avahi-browse was able to find gamestream host:
-if [ $autopair = true ]; then
-    if ! docker run -it -v moonlight-home:/home/moonlight-user \
-        -v /var/run/dbus:/var/run/dbus --device /dev/vchiq:/dev/vchiq \
-        clarkemw/moonlight-embedded-raspbian pair; then
-        echo "WARNING: unable to automatically pair to gamestream host"
-    fi
-fi
-
-# Create kodi add-on zip:
-zip -r script.moonlight-embedded-launcher.zip script.moonlight-embedded-launcher
-
 echo ""
-echo "Installation complete!"
-echo "Please install launcher add-on in Kodi via zip file using: script.moonlight-embedded-launcher.zip"
+echo "SUCCESS: Installation complete!"
+exit 0
