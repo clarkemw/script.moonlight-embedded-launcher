@@ -7,7 +7,7 @@ More info on moonlight-embedded can be found here:
 https://github.com/moonlight-stream/moonlight-embedded
 
 ## Prerequisites:
-- Raspberry Pi 2, 3 or 4 device with LibreELEC installed, connected to local network via ethernet (preferred) or wifi. (Note that Raspberry Pi 4 devices can run the full featured moonlight-qt, see this repository for more info: https://github.com/veldenb/plugin.program.moonlight-qt)
+- Raspberry Pi 2, 3 or 4 device with LibreELEC 9 installed, connected to local network via ethernet (preferred) or wifi. (Note that Raspberry Pi 4 devices can run the full featured moonlight-qt, see this repository for more info: https://github.com/veldenb/plugin.program.moonlight-qt)
 - Gaming PC with Steam and Nvidia GeForce Experience installed, connected to local network via ethernet (preferred) or wifi
 - Basic familiarity with ssh and terminal for installation
 
