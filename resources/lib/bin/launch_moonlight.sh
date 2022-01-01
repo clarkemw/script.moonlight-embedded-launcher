@@ -1,7 +1,7 @@
 #!/bin/bash
 . /etc/profile
 
-# Get optional arguments/flags (should be specified after standard arguments)
+# Get optional arguments/flags (should be specified before standard arguments)
 optstring=':qi:'
 while getopts ${optstring} arg; do
   case ${arg} in

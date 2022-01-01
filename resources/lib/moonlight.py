@@ -60,13 +60,14 @@ def launch(res, fps, bitrate, quitafter, hostip):
     # Send quit command from moonlight after existing (helpful for non-steam sessions):
     quitflag = "-q" if quitafter == "true" else ""
     # Custom host ip (moonlight will auto-detect if not specified)
-    hostipflag = "-i {}".format(hostip=hostip) if hostip else "" 
+    hostipflag = "-i {}".format(hostip) if hostip else "" 
     script = os.path.join(os.path.dirname(__file__), "bin",
                           "launch_moonlight.sh")
     launchCommand = "systemd-run bash {}".format(script)
-    args = ' "{}" "{}" "{}" "{}" {} {}'.format(res, fps, bitrate, selectedGame,
-                                         quitflag, hostipflag).rstrip()
-    os.system(launchCommand + args)
+    # pass optional flag arguments first because bash getopts is picky
+    args = '{} {} "{}" "{}" "{}" "{}"'.format(hostipflag, quitflag, res, fps, bitrate, 
+                                               selectedGame).strip()
+    os.system(launchCommand + " " + args)
 
 
 def load_installed_games(hostip):
@@ -80,7 +81,6 @@ def load_installed_games(hostip):
         (status, result) = wait_or_cancel(proc, "List",
                                           "Getting available games...")
         if status == 0 and result:
-            gamelist = result.splitlines()
             ## We expect the list command to follow the pattern below:
             # =========================================
             # Searching for server...
@@ -90,10 +90,9 @@ def load_installed_games(hostip):
             # 3. Steam
             # =========================================
             # A return code=0 signals that we were successful in obtaining the list.
-            # We omit the first 2 lines as they are just indicating to which PC we
-            # connected to.
-            if len(gamelist) > 2:
-                return gamelist[2:]
+            gamelist = [game for game in result.splitlines() if re.search('^\d+\.',game)]
+            if gamelist:
+                return gamelist
             else:
                 xbmcgui.Dialog().ok("Error during fetching installed games",
                                     result)

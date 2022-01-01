@@ -22,10 +22,10 @@ Add-ons / Install from repository / LibreELEC Add-ons / Services / Docker
 ```
 3. SSH into your LibreELEC device, download/extract the latest release of this repository to your LibreELEC device. Then install via zip file inside the Kodi gui.
 ```sh
-wget https://github.com/clarkemw/script.moonlight-embedded-launcher/archive/v1.0/script.moonlight-embedded-launcher-1.0.zip
+wget https://github.com/clarkemw/script.moonlight-embedded-launcher/archive/v1.1/script.moonlight-embedded-launcher-1.1.zip
 ```
 ```
-Kodi/Add-ons/Install from zip file/Select script.moonlight-embedded-launcher-1.0.zip
+Kodi/Add-ons/Install from zip file/Select script.moonlight-embedded-launcher-1.1.zip
 ```
 4. Upon first launch of the addon an installer process will launch to download/configure the Docker container. This process will take a few minutes as the Docker container is fairly large. See https://github.com/clarkemw/moonlight-embedded-raspbian-docker for details.
 ![Installation menu](readme_files/install.png)
