@@ -26,13 +26,14 @@ while True:
             sys.exit()
 
     opt = xbmcgui.Dialog().contextmenu(["Play Game", "Configure"])
+    hostip = addon.getSetting("hostip") if addon.getSetting("autodetect") == "false" else ""
     if opt == 0:
         res = addon.getSetting("resolution")
         fps = addon.getSetting("fps") # Removed auto fps, appears to be broken
         bitrate = (addon.getSetting("bitrate")
                    if addon.getSetting("bitrate") != "auto" else "-1")
         quitafter = addon.getSetting("quitafter")
-        moonlight.launch(res, fps, bitrate, quitafter)
+        moonlight.launch(res, fps, bitrate, quitafter, hostip)
         sys.exit()
     elif opt == 1:
         opt2 = xbmcgui.Dialog().contextmenu(
@@ -40,8 +41,8 @@ while True:
         if opt2 == 0:
             addon.openSettings()
         elif opt2 == 1:
-            moonlight.pair()
+            moonlight.pair(hostip)
         elif opt2 == 2:
-            moonlight.update_container()
+            moonlight.update_moonlight()
     else:
         sys.exit()

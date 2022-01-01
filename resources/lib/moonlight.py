@@ -30,7 +30,7 @@ def install():
         return False
 
 
-def launch(res, fps, bitrate, quitafter):
+def launch(res, fps, bitrate, quitafter, hostip):
     """
     Launches moonlight-embedded as an external process and kills Kodi so display is available
     Kodi will be automatically relaunched after moonlight-embedded exits
@@ -39,8 +39,10 @@ def launch(res, fps, bitrate, quitafter):
     :param fps: frames per second of streaming session
     :param bitrate: bitrate of streaming session
     :param quitafter: quit flag helpful for desktop sessions
+    :param hostip: gamestream host ip (blank if using autodetect)
     """
-    gameList = load_installed_games()
+
+    gameList = load_installed_games(hostip)
     if gameList == None:
         return
     dialog = xbmcgui.Dialog()
@@ -56,22 +58,24 @@ def launch(res, fps, bitrate, quitafter):
         xbmc.LOGINFO,
     )
     # Send quit command from moonlight after existing (helpful for non-steam sessions):
-    quitflag = "-quitappafter" if quitafter == "true" else ""
+    quitflag = "-q" if quitafter == "true" else ""
+    # Custom host ip (moonlight will auto-detect if not specified)
+    hostipflag = "-i {}".format(hostip=hostip) if hostip else "" 
     script = os.path.join(os.path.dirname(__file__), "bin",
                           "launch_moonlight.sh")
     launchCommand = "systemd-run bash {}".format(script)
-    args = ' "{}" "{}" "{}" "{}"'.format(res, fps, bitrate, selectedGame,
-                                         quitflag)
+    args = ' "{}" "{}" "{}" "{}" {} {}'.format(res, fps, bitrate, selectedGame,
+                                         quitflag, hostipflag).rstrip()
     os.system(launchCommand + args)
 
 
-def load_installed_games():
+def load_installed_games(hostip):
     """
     request available games from the Gamestream host
 
     :return: list of available games
     """
-    proc = run_moonlight("list", wait=False)
+    proc = run_moonlight("list", hostip, wait=False)
     if proc:
         (status, result) = wait_or_cancel(proc, "List",
                                           "Getting available games...")
@@ -95,7 +99,7 @@ def load_installed_games():
                                     result)
 
 
-def pair():
+def pair(hostip):
     """
     Generates pairing credentials with a gamestream host
     """
@@ -103,7 +107,7 @@ def pair():
         "Pairing", "Do you want to pair with a Gamestream host?")
     if opt:
         pDialog = xbmcgui.DialogProgress()
-        proc = run_moonlight("pair", wait=False, blockio=False)
+        proc = run_moonlight("pair", hostip, wait=False, blockio=False)
         stdout = ""
         codeFlag = False
         pDialog.create("Pairing", "Launching pairing...")
@@ -139,7 +143,7 @@ def pair():
                 "Gamestream credentials already exist for this host.")
 
 
-def run_moonlight(mode, wait=True, blockio=True):
+def run_moonlight(mode, hostip, wait=True, blockio=True):
     """
     execute moonlight in a local subprocess (won't work for streaming)
 
@@ -149,15 +153,27 @@ def run_moonlight(mode, wait=True, blockio=True):
     :return: subprocess object
     """
     stop_old_container("moonlight_{mode}".format(mode=mode))
-    if not host_check():
+    if not hostip and not host_check():
         xbmcgui.Dialog().ok(
             "Error",
-            "No Gamestream host detected on local network. Please connect it, enable Gamestream and retry.",
+            "No Gamestream host auto-detected on local network. Please connect it, enable Gamestream and retry.",
         )
         return None
     cmd = (
         "docker run --rm -t --name moonlight_{mode}"
         " -v moonlight-home:/home/moonlight-user -v /var/run/dbus:/var/run/dbus"
-        " clarkemw/moonlight-embedded-raspbian {mode}").format(mode=mode)
-    return subprocess_runner(cmd.split(" "), "moonlight " + mode, wait,
+        " clarkemw/moonlight-embedded-raspbian {mode} {hostip}").format(mode=mode, hostip=hostip)
+    return subprocess_runner(cmd.rstrip().split(" "), "moonlight " + mode, wait,
                              blockio)
+
+def update_moonlight():
+    """
+    performs a docker pull to update the moonlight-embedded container
+    """
+    opt = xbmcgui.Dialog().yesno(
+        "Update", "Do you want to update the moonlight-embedded docker container?")
+    if opt:   
+        cmd = "docker pull clarkemw/moonlight-embedded-raspbian"
+        proc = subprocess_runner(cmd.split(" "), "docker update", wait=False)
+        wait_or_cancel(proc, "Update",
+                       "Running docker update...this may take a few minutes")

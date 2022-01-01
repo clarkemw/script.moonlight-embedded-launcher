@@ -1,7 +1,19 @@
 #!/bin/bash
 . /etc/profile
 
-# Get stream parameters
+# Get optional arguments/flags (should be specified after standard arguments)
+optstring=':qi:'
+while getopts ${optstring} arg; do
+  case ${arg} in
+  i)
+     hostip=${OPTARG};;
+  q)
+     quitflag='-quitappafter';;
+  esac
+done
+shift $((OPTIND-1))
+
+# Get standard stream parameters
 if [ -z "$1" ]; then
     echo "Error, please specify resolution (720,1080 or 4k)...exiting"
     exit 1
@@ -26,18 +38,13 @@ if [ -z "$4" ]; then
 else
     game="$4"
 fi
-if [ -z "$5" ]; then
-    quitflag="$5"
-else
-    quitflag=""
-fi
 
 systemctl stop kodi # Must close kodi for proper video display
 
 # Launch docker, adjusted to just used input variables 
 docker run --rm --name moonlight -t -v moonlight-home:/home/moonlight-user \
 -v /var/run/dbus:/var/run/dbus --device /dev/vchiq --device /dev/input \
-clarkemw/moonlight-embedded-raspbian stream -"$res" -fps "$fps" -bitrate "$bitrate" $quitflag -app "$game"
+clarkemw/moonlight-embedded-raspbian stream -"$res" -fps "$fps" -bitrate "$bitrate" $quitflag -app "$game" $hostip
 
 docker wait moonlight
 
