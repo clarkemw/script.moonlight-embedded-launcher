@@ -33,7 +33,8 @@ while True:
         bitrate = (addon.getSetting("bitrate")
                    if addon.getSetting("bitrate") != "auto" else "-1")
         quitafter = addon.getSetting("quitafter")
-        moonlight.launch(res, fps, bitrate, quitafter, hostip)
+        usercustom = addon.getSetting("usercustom")
+        moonlight.launch(res, fps, bitrate, quitafter, hostip, usercustom)
         sys.exit()
     elif opt == 1:
         opt2 = xbmcgui.Dialog().contextmenu(

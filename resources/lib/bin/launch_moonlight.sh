@@ -2,9 +2,11 @@
 . /etc/profile
 
 # Get optional arguments/flags (should be specified before standard arguments)
-optstring=':qi:'
+optstring=':qi:c:'
 while getopts ${optstring} arg; do
   case ${arg} in
+  c)
+     customflag=${OPTARG};;
   i)
      hostip=${OPTARG};;
   q)
@@ -44,7 +46,7 @@ systemctl stop kodi # Must close kodi for proper video display
 # Launch docker, adjusted to just used input variables 
 docker run --rm --name moonlight -t -v moonlight-home:/home/moonlight-user \
 -v /var/run/dbus:/var/run/dbus --device /dev/vchiq --device /dev/input \
-clarkemw/moonlight-embedded-raspbian stream -"$res" -fps "$fps" -bitrate "$bitrate" $quitflag -app "$game" $hostip
+clarkemw/moonlight-embedded-raspbian stream -"$res" -fps "$fps" -bitrate "$bitrate" $quitflag $customflag -app "$game" $hostip
 
 docker wait moonlight
 

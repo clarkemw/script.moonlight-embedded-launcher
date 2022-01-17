@@ -30,7 +30,7 @@ def install():
         return False
 
 
-def launch(res, fps, bitrate, quitafter, hostip):
+def launch(res, fps, bitrate, quitafter, hostip, usercustom):
     """
     Launches moonlight-embedded as an external process and kills Kodi so display is available
     Kodi will be automatically relaunched after moonlight-embedded exits
@@ -40,6 +40,7 @@ def launch(res, fps, bitrate, quitafter, hostip):
     :param bitrate: bitrate of streaming session
     :param quitafter: quit flag helpful for desktop sessions
     :param hostip: gamestream host ip (blank if using autodetect)
+    :param usercustom: any custom flags the user wants to pass to moonlight
     """
 
     gameList = load_installed_games(hostip)
@@ -61,11 +62,13 @@ def launch(res, fps, bitrate, quitafter, hostip):
     quitflag = "-q" if quitafter == "true" else ""
     # Custom host ip (moonlight will auto-detect if not specified)
     hostipflag = "-i {}".format(hostip) if hostip else "" 
+    # Custom user settings:
+    customflag = "-c \"{}\"".format(usercustom) if usercustom else ""
     script = os.path.join(os.path.dirname(__file__), "bin",
                           "launch_moonlight.sh")
     launchCommand = "systemd-run bash {}".format(script)
     # pass optional flag arguments first because bash getopts is picky
-    args = '{} {} "{}" "{}" "{}" "{}"'.format(hostipflag, quitflag, res, fps, bitrate, 
+    args = '{} {} {} "{}" "{}" "{}" "{}"'.format(hostipflag, quitflag, customflag, res, fps, bitrate, 
                                                selectedGame).strip()
     os.system(launchCommand + " " + args)
 

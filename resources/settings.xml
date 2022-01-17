@@ -10,9 +10,9 @@
        <setting type="bool" id="autodetect" label="Auto-Detect Gamestream Host IP" default="true"/>
        <setting type="ipaddress" id="hostip" label="Custom Host IP"/>
     </category>
-    <category label="Config">
+    <category label="Advanced">
+       <setting type="text" id="usercustom" label="Custom Flags for Moonlight Embedded" default=""/>
        <setting type="bool" id="firstrun" label="First Run Flag (triggers installation)" default="true"/>
-    </category>   
-
+    </category>
 </settings>
 
