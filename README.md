@@ -35,7 +35,7 @@ Kodi/Add-ons/Install from zip file/Select script.moonlight-embedded-launcher-1.1
 ![Gamestream host pop-up](readme_files/gamestream_prompt.png)  
 Visit `Configure/Pair` in the GUI if you ever need to register a new Gamestream host. 
 
-6. Launch moonlight-embedded from within Kodi and enjoy your game streaming experience. Select `Play Game` and follow the prompts to play any game registered with gamestream.  Select `Configure` to pair with a new host, update the Docker container or adjust settings (resolution, framerate and bitrate).
+6. Launch moonlight-embedded from within Kodi and enjoy your game streaming experience. Select `Play Game` and follow the prompts to play any game registered with gamestream.  Select `Configure` to pair with a new host, update the Docker container or adjust settings (resolution, framerate, bitrate, custom IPs, custom moonlight flags etc).
 ```
 Kodi/Add-ons/Game add-ons/Moonlight Embedded Launcher
 ```
