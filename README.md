@@ -8,21 +8,19 @@ https://github.com/moonlight-stream/moonlight-embedded
 
 ## Prerequisites:
 - Raspberry Pi 2, 3 or 4 device with LibreELEC 9 installed, connected to local network via ethernet (preferred) or wifi. (Note that Raspberry Pi 4 devices can run the full featured moonlight-qt, see this repository for more info: https://github.com/veldenb/plugin.program.moonlight-qt)
-- Gaming PC with Steam and Nvidia GeForce Experience installed, connected to local network via ethernet (preferred) or wifi
+- Gaming PC with Steam and Sunshine (https://github.com/LizardByte/Sunshine) installed, connected to local network via ethernet (preferred) or wifi
 - Basic familiarity with ssh and terminal for installation
 
 ## Instructions:
-1. Enable Nvidia Gamestream on your gaming PC
-```
-GeForce Experience/Settings/Shield/Gamestream (move slider to right)
-```
+1. Install Sunshine (https://github.com/LizardByte/Sunshine) on your PC and enable.  Previously this addon supported Nvidia Gamestream but Nvidia discontinued that capability.  Sunshine works just fine as a replacement.
+
 2. In Kodi install Docker from the LibreELEC repository.  Then REBOOT your device to make sure the Docker libraries are loaded.
 ```
 Add-ons / Install from repository / LibreELEC Add-ons / Services / Docker
 ```
 3. SSH into your LibreELEC device, download/extract the latest release of this repository to your LibreELEC device. Then install via zip file inside the Kodi gui.
 ```sh
-wget https://github.com/clarkemw/script.moonlight-embedded-launcher/archive/v1.1/script.moonlight-embedded-launcher-1.1.zip
+wget https://github.com/clarkemw/script.moonlight-embedded-launcher/archive/refs/tags/v1.1/script.moonlight-embedded-launcher-1.1.zip
 ```
 ```
 Kodi/Add-ons/Install from zip file/Select script.moonlight-embedded-launcher-1.1.zip
@@ -33,9 +31,10 @@ Kodi/Add-ons/Install from zip file/Select script.moonlight-embedded-launcher-1.1
 5. The next step is pairing with the Gamestream host.  Ensure that the host is on and connected to the local network. Then start the pairing process by selecting `Yes`. You will be prompted with an authentication code in the Kodi gui. Enter this code in the popup that appears on the Gamestream host.
 ![Pairing menu](readme_files/pair_code.png)
 ![Gamestream host pop-up](readme_files/gamestream_prompt.png)  
-Visit `Configure/Pair` in the GUI if you ever need to register a new Gamestream host. 
+Note screenshot above is from old Nvidia Gamestream software. Sunshine has a similar pin entry capability in the web interface under the "Pin" tab.  
+Visit `Configure/Pair` in the Kodi Add-on GUI if you ever need to register a new Gamestream host. 
 
-6. Launch moonlight-embedded from within Kodi and enjoy your game streaming experience. Select `Play Game` and follow the prompts to play any game registered with gamestream.  Select `Configure` to pair with a new host, update the Docker container or adjust settings (resolution, framerate, bitrate, custom IPs, custom moonlight flags etc).
+7. Launch moonlight-embedded from within Kodi and enjoy your game streaming experience. Select `Play Game` and follow the prompts to play any game registered with gamestream.  Select `Configure` to pair with a new host, update the Docker container or adjust settings (resolution, framerate, bitrate, custom IPs, custom moonlight flags etc).
 ```
 Kodi/Add-ons/Game add-ons/Moonlight Embedded Launcher
 ```
